@@ -1,0 +1,14 @@
+{
+  "name": "protobuf-breaking-change-validator",
+  "version": "1.0.0",
+  "scripts": {
+    "verify-protos": "buf breaking --against ./.git#branch=main"
+  },
+  "keywords": [],
+  "author": "Cássio Farias Machado",
+  "license": "MIT",
+  "description": "Proof of concept of automated breaking change validation on protobuf schemas.",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.48.0"
+  }
+}
