@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protos;
+
+import "protos/product.proto";
+
+message Cart {
+  string id = 1;
+  repeated Product products = 2;
+}
