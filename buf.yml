@@ -3,3 +3,7 @@ version: v2
 breaking:
   use:
     - WIRE
+
+linting:
+  use:
+    - STANDARD

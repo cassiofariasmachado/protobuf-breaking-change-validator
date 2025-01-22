@@ -8,6 +8,10 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,11 +19,23 @@ jobs:
     steps:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.1.0
-        
-      - uses: actions/checkout@v4
-    
-      - name: NPM Install
-        run: npm install
 
-      - name: Verify breaking changes on protobufs
-        run: npm run verify-protos
+      - name: Checkout head
+        uses: actions/checkout@v4
+        with:
+          path: head
+
+      - name: Checkout base ref
+        uses: actions/checkout@v4
+        with:
+          path: base
+          ref: ${{ github.event.pull_request.base.sha || 'main' }}
+
+      - name: Verify breaking changes
+        uses: bufbuild/buf-action@v1
+        with:
+          input: head
+          breaking_against: base
+          format: true
+          lint: true
+          pr_comment: true
